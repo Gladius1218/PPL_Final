@@ -80,36 +80,85 @@ flyer_keydown(flyer,e) {
             flyer.isSend = true;
         }
     }
-    else if(!flyer.isMove)flyer.move(keyCode);
+    else if(!flyer.isMove) flyer_move(flyer, keyCode);
 }
 
 function
 flyer_keyup(flyer,e){
     if(flyer.keyCodeAndDirection[e.keyCode]){
-        flyer.stopMove();
+        flyer_stopMove(flyer);
     }
     else if(e.keyCode == 32){
         flyer.isSend = false;
     }
 }
+
+function
+flyer_stopMove(flyer){
+        flyer.isMove = false;
+        clearInterval(flyer.moveId);
+}
+
+function
+flyer_move(flyer, keyCode){
+    flyer.isMove = true;
+    var _this = flyer;
+    switch(this.keyCodeAndDirection[keyCode]){
+        case "left":{
+            this.moveId = setInterval(function(){flyer_moveLeftUp("left");},_this.movesp);
+            break;
+        }
+        case "up":{
+            this.moveId = setInterval(function(){flyer_moveLeftUp("up");},_this.movesp);
+            break;
+        }
+        case "right":{
+            this.moveId = setInterval(function(){flyer_moveRightDown("right")},_this.movesp);
+            break;
+        }
+        case "down":{
+            this.moveId = setInterval(function(){flyer_moveRightDown("down");},_this.movesp);
+            break;
+        }
+        default:break;
+    } 
+}
+
+function
+flyer_moveLeftUp(flyer, direction){
+    var this = flyer
+    var leftOrUp = this.dom[direction=="left"?"offsetLeft":"offsetTop"];
+    leftOrUp = leftOrUp - this.movepx >= 0 ? leftOrUp - this.movepx:0;
+    this.dom.style[direction=="left"?"left":"top"] = leftOrUp + 'px';
+    if(leftOrUp == 0){this.stopMove();}
+}
+
+function
+flyer_moveRightDown(flyer, direction){
+    var this = flyer
+    var leftOrUp = this.dom[direction=="right"?"offsetLeft":"offsetTop"];
+    var maxDistance = direction=="right"?this.gameWidth-this.dom.clientWidth:this.gameHeight - this.dom.clientHeight;
+    leftOrUp = leftOrUp + this.movepx <= maxDistance ? leftOrUp + this.movepx:maxDistance;
+    this.dom.style[direction=="right"?"left":"top"] = leftOrUp + 'px';
+    if(leftOrUp == maxDistance){this.stopMove();}
+}
+
+function
+burstFlyer(flyer){
+        flyer.dom.className = 'bingo';
+}
 %} // end of [%{]
 //
 (* ****** ****** *)
-
 
 (* ****** ****** *)
 
 (* end of [mygame_flyer.dats] 
 
 fun flyer_init(): void = "mac#"   //fun mygame_flyer_initize(): void = "mac#"
-fun flyer_keydown(): void = "mac#"//theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
-fun flyer_keyup(): void = "mac#"
-fun flyer_move(): void = "mac#"
 fun flyer_moveLeftUp(): void = "mac#"
 fun flyer_moveRightDown(): void = "mac#"
-fun flyer_stopMove(): void = "mac#"
 fun flyer_sendBullet(): void = "mac#" //flyer_fire_bullet(flyer): void = "mac#"
-fun flyer_burstFlyer(): void = "mac#"
 fun flyer_onSendBullet(): void = "mac#"
 fun flyer_onChangeScore(): void = "mac#"
 fun flyer_theFlyer_get (): Option(flyer) = "mac#"

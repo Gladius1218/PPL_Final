@@ -77,7 +77,7 @@ var Game = {
 				this.isLive = false;
 				//if crash, life - 1
 				if (!_this.flyer.Lives) {
-					_this.flyer.burstFlyer();
+					burstFlyer(_this.flyer);
 					return true;
 				}else{
 					_this.flyer.Lives = _this.flyer.Lives - 1;

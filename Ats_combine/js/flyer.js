@@ -30,7 +30,7 @@ Flyer.prototype = {
 	bulletLevel : 1,
 	//max bullet number
 	maxBullet : 12,
-	//direction
+	//方向键值对应
 	keyCodeAndDirection : {
 		37 : "left",
 		38 : "up",
