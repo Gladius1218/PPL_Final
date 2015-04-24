@@ -71,6 +71,27 @@ flyerSetPosition(flyer,gamePanel,width,height){
     flyer.gameHeight = height;
 }
 
+function
+flyer_keydown(flyer,e) {       
+    var keyCode = e.keyCode;
+    if(keyCode == 32){
+        if(!flyer.isSend){
+            flyer.onSendBullet();
+            flyer.isSend = true;
+        }
+    }
+    else if(!flyer.isMove)flyer.move(keyCode);
+}
+
+function
+flyer_keyup(flyer,e){
+    if(flyer.keyCodeAndDirection[e.keyCode]){
+        flyer.stopMove();
+    }
+    else if(e.keyCode == 32){
+        flyer.isSend = false;
+    }
+}
 %} // end of [%{]
 //
 (* ****** ****** *)
