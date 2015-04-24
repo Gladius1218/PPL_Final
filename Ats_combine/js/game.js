@@ -116,13 +116,13 @@ var Game = {
 		}
 		else return;
 		//call key down function
-		flyer_keydown(this.flyer, e);
+		this.flyer.keydown(e);
 	},
 	//key release
 	onkeyup : function(e){
 		e = e || window.event;
 		//call key release function
-		flyer_keyup(this.flyer, e);
+		this.flyer.keyup(e);
 	},
 	//chenge score
 	changeScore : function(){
