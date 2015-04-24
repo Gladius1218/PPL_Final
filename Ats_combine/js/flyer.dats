@@ -71,7 +71,6 @@ flyerSetPosition(flyer,gamePanel,width,height){
     flyer.gameHeight = height;
 }
 
-
 function
 flyer_keydown(flyer,e) {       
     var keyCode = e.keyCode;
@@ -148,7 +147,6 @@ function
 burstFlyer(flyer){
         flyer.dom.className = 'bingo';
 }
-
 %} // end of [%{]
 //
 (* ****** ****** *)
