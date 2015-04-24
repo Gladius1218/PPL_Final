@@ -45,7 +45,7 @@ var Game = {
 		//new player object
 		this.flyer = new Flyer();
 		//set position
-		this.flyer.setPosition(this.gamePanel,this.gamePanel.clientWidth,this.gamePanel.clientHeight);
+		flyerSetPosition(this.flyer,this.gamePanel,this.gamePanel.clientWidth,this.gamePanel.clientHeight);
 		//fire function
 		this.flyer.onSendBullet = function(){this.sendBullet(_this.enemyList);};
 		//change score
@@ -179,3 +179,4 @@ function Start(){
 	document.getElementById('score').innerHTML = 0;
 	document.getElementById('lives').innerHTML = 3;
 }
+

@@ -19,19 +19,10 @@
 //
 (* ****** ****** *)
 
-#define XPLAYER 32
-#define YPLAYER 32
-#define XSCREEN 640
-#define YSCREEN 640
-
-(* ****** ****** *)
-
-#define BULLET_VX 0
-#define BULLET_VY 16
-
 (* ****** ****** *)
 
 abstype flyer
+abstype gamePanel
 
 (* ******flyer functions ****** *)
 
@@ -48,6 +39,6 @@ fun flyer_burstFlyer(): void = "mac#"
 fun flyer_onSendBullet(): void = "mac#"
 fun flyer_onChangeScore(): void = "mac#"
 fun flyer_thePlayer_get (): Option(flyer) = "mac#"
-fun flyerSetPosition(flyer,gamePanel,width,height): void = "mac#"
+fun flyerSetPosition(flyer:flyer,gamePanel:gamePanel,width:int,height:int): void = "mac#"
 
 (* end of [flyer.sats] *)
