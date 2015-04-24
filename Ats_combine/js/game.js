@@ -70,7 +70,8 @@ var Game = {
 			//game over already
 			if(_this.isGameOver)return;
 			//hit or not
-			if(Math.sqrt(Math.pow(_this.flyer.dom.offsetLeft-this.dom.offsetLeft,2)+Math.pow(_this.flyer.dom.offsetTop-this.dom.offsetTop,2))
+			if(Math.sqrt(Math.pow(_this.flyer.dom.offsetLeft-this.dom.offsetLeft,2)
+				+ Math.pow(_this.flyer.dom.offsetTop-this.dom.offsetTop,2))
 				<= _this.flyer.dom.clientWidth/2 + this.dom.clientWidth/2){
 				//enemy down
 				this.isLive = false;
