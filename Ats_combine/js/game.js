@@ -47,7 +47,7 @@ var Game = {
 		//set position
 		flyerSetPosition(this.flyer,this.gamePanel,this.gamePanel.clientWidth,this.gamePanel.clientHeight);
 		//fire function
-		this.flyer.onSendBullet = function(){this.sendBullet(_this.enemyList);};
+		this.flyer.onSendBullet = function(){flyer_sendBullet(_this.flyer, _this.enemyList);};
 		//change score
 		this.flyer.onChangeScore = function(){_this.changeScore();};
 	},
@@ -130,7 +130,7 @@ var Game = {
 		this.score += 100;
 		document.getElementById('score').innerHTML =  this.score;
 		//score level
-		var scoreLevel = parseInt(this.score / 500,10) + 1;
+		var scoreLevel = 1;//parseInt(this.score / 500,10) + 1;
 		//upgade score level and bonus life
 		if(scoreLevel > 1){
 			this.flyer.bulletLevel = scoreLevel>4?4:scoreLevel;

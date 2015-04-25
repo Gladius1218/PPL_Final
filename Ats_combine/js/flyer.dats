@@ -52,7 +52,9 @@ Flyer.prototype = {
     init : function(){
         this.dom = document.createElement('div');
         this.dom.className = 'flyer';
-    }
+    },
+    onSendBullet : function(){},
+    onChangeScore : function(){}
 }
 %} // end of [%{]
 //
@@ -63,6 +65,7 @@ Flyer.prototype = {
 function
 flyerSetPosition(flyer,gamePanel,width,height){
     var flyer = flyer;
+    flyer.gamePanel = gamePanel;
     var gamePanel = gamePanel;
     gamePanel.appendChild(flyer.dom);
     flyer.dom.style.left = (width - flyer.dom.clientWidth) / 2 + 'px';
@@ -144,20 +147,61 @@ flyer_moveRightDown(flyer, direction){
 
 function
 burstFlyer(flyer){
-        flyer.dom.className = 'bingo';
+    flyer.dom.className = 'bingo';
 }
 
+function
+flyer_sendBullet(flyer, enemyList){
+    if(flyer.bulletLevel + flyer.nowBullet > flyer.maxBullet){return;}
+    for (var i = 1,l=flyer.bulletLevel; i <= l; i++) {
+        var bullet = new Bullet();
+        bullet.checkBeat = function(){bullet_checkBeat(bullet, flyer, enemyList);};
+        bullet.onend = function(){bullet_onend(bullet, flyer, enemyList);};
+        flyer.gamePanel.appendChild(bullet.dom);
+        bullet.setPosition({
+            left: flyer.dom.offsetLeft,
+            top: flyer.dom.offsetTop,
+            width: flyer.dom.clientWidth,
+            position : i,
+            level : l
+        });
+        bullet.animation();
+        flyer.nowBullet++;
+    }
+}
+
+function
+bullet_checkBeat(bullet, flyer, enemyList){
+    for (var i = 0, l = enemyList.length; i < l; i++) {
+        if(!enemyList[i].isLive)continue;
+        var e_left = enemyList[i].dom.offsetLeft, 
+        e_top = enemyList[i].dom.offsetTop, 
+        e_radius = enemyList[0].dom.clientWidth / 2, 
+        b_left = bullet.dom.offsetLeft, 
+        b_top = bullet.dom.offsetTop, 
+        b_radius = bullet.dom.clientWidth / 2;
+        if (Math.sqrt(Math.pow(e_left - b_left, 2) + Math.pow(e_top - b_top, 2)) <= e_radius + b_radius) {
+            enemyList[i].isLive = false;
+            flyer.onChangeScore();
+        }
+    }
+    return false;
+}
+
+function
+bullet_onend(bullet, flyer, enemyList){
+    flyer.gamePanel.removeChild(bullet.dom);
+    flyer.nowBullet--;
+}
 %} // end of [%{]
 //
 (* ****** ****** *)
 
 (* ****** ****** *)
 
-(* end of [mygame_flyer.dats] 
+(* end of [flyer.dats] 
 
-fun flyer_init(): void = "mac#"   //fun mygame_flyer_initize(): void = "mac#"
-fun flyer_moveLeftUp(): void = "mac#"
-fun flyer_moveRightDown(): void = "mac#"
+
 fun flyer_sendBullet(): void = "mac#" //flyer_fire_bullet(flyer): void = "mac#"
 fun flyer_onSendBullet(): void = "mac#"
 fun flyer_onChangeScore(): void = "mac#"

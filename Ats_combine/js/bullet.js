@@ -28,7 +28,6 @@ Bullet.prototype = {
 		//set bullet place
 		this.dom.style.left = center + offset + 'px';
 		this.dom.style.top = flyerinfo.top - this.dom.clientHeight + 'px';
-		
 	},
 	//bullet move
 	animation : function(){
@@ -49,8 +48,8 @@ Bullet.prototype = {
 		process();
 	},
 	//enemy hit
-	bullet_checkBeat : function(){},
+	checkBeat : function(){},
 	//bullet end
-	bullet_onend : function(){}
+	onend : function(){}
 	
 }
