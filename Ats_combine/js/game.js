@@ -122,7 +122,7 @@ var Game = {
 	onkeyup : function(e){
 		e = e || window.event;
 		//call key release function
-		flyer_keydown(this.flyer, e);
+		flyer_keyup(this.flyer, e);
 	},
 	//chenge score
 	changeScore : function(){

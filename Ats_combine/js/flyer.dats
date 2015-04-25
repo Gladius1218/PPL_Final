@@ -72,7 +72,7 @@ flyerSetPosition(flyer,gamePanel,width,height){
 }
 
 function
-flyer_keydown(flyer,e) {       
+flyer_keydown(flyer,e) {      
     var keyCode = e.keyCode;
     if(keyCode == 32){
         if(!flyer.isSend){
@@ -95,7 +95,6 @@ flyer_keyup(flyer,e){
 
 function
 flyer_stopMove(flyer){
-        alert("stop!!");
         flyer.isMove = false;
         clearInterval(flyer.moveId);
 }
@@ -103,22 +102,21 @@ flyer_stopMove(flyer){
 function
 flyer_move(flyer, keyCode){
     flyer.isMove = true;
-    var _this = flyer;
     switch(flyer.keyCodeAndDirection[keyCode]){
         case "left":{
-            flyer.moveId = setInterval(function(){flyer_moveLeftUp(flyer,"left");},_this.movesp);
+            flyer.moveId = setInterval(function(){flyer_moveLeftUp(flyer,"left");},flyer.movesp);
             break;
         }
         case "up":{
-            flyer.moveId = setInterval(function(){flyer_moveLeftUp(flyer,"up");},_this.movesp);
+            flyer.moveId = setInterval(function(){flyer_moveLeftUp(flyer,"up");},flyer.movesp);
             break;
         }
         case "right":{
-            flyer.moveId = setInterval(function(){flyer_moveRightDown(flyer,"right")},_this.movesp);
+            flyer.moveId = setInterval(function(){flyer_moveRightDown(flyer,"right")},flyer.movesp);
             break;
         }
         case "down":{
-            flyer.moveId = setInterval(function(){flyer_moveRightDown(flyer,"down");},_this.movesp);
+            flyer.moveId = setInterval(function(){flyer_moveRightDown(flyer,"down");},flyer.movesp);
             break;
         }
         default:break;

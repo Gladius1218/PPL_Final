@@ -49,8 +49,8 @@ Bullet.prototype = {
 		process();
 	},
 	//enemy hit
-	checkBeat : function(){},
+	bullet_checkBeat : function(){},
 	//bullet end
-	onend : function(){}
+	bullet_onend : function(){}
 	
 }

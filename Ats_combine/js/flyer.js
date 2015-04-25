@@ -134,7 +134,7 @@ Flyer.prototype = {
 		if(leftOrUp == maxDistance){this.stopMove();}
 	},
 	//stop moving
-	stopMove : function(){
+	stopMove: function(){
 		this.isMove = false;
 		clearInterval(this.moveId);
 	},
