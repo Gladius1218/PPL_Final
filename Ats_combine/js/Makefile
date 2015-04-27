@@ -46,11 +46,11 @@ ATSCC2JS=$(PATSHOME)/bin/atscc2js
 # ######
 #
 all:: \
-flyer_dats.js
+myGame_dats.js
 #
-flyer_dats.c: \
-flyer.sats flyer.dats; $(PATSCC) -ccats flyer.dats
-flyer_dats.js: flyer_dats.c; $(ATSCC2JS) -o $@ -i $<
+myGame_dats.c: \
+myGame.sats myGame.dats; $(PATSCC) -ccats myGame.dats
+myGame_dats.js: myGame_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 
