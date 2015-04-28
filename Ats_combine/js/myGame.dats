@@ -128,7 +128,7 @@ in
   case- opt of
   | None() => ()
   | Some(_) => let
-    val () = test(10086.0)
+    //val () = test(10086.0)
     val enemy = create_enemy()
     val () = set_enemy_animation(enemy)
   in
@@ -144,23 +144,13 @@ let
   val enemy_y = enemy_getPosition_Y(enemy)
   val dist_x = player_x - enemy_x
   val dist_y = player_x - enemy_x
-  val abs_dist_x = (if dist_x < 0.0 then ~dist_x else dist_x)
-  val abs_dist_y = (if dist_y < 0.0 then ~dist_y else dist_y)
 in
-  if abs_dist_x > abs_dist_y then
     let
       val speed_x = dist_x / dist_y
       val speed_y = 1.0
-      val () = test(speed_x)
+      //val () = test(speed_x)
     in
       enemy_move(enemy, speed_x, speed_y, lam() => enemy_remove(enemy))
-    end else let
-      val speed_y = dist_y / dist_x
-      val speed_x = 1.0
-      val () = test(speed_y)
-    in
-      enemy_move(enemy, speed_x, speed_y, lam() => enemy_remove(enemy))
-      //error: k should be player_crash
     end
 end
 
@@ -198,6 +188,16 @@ end
 implement enemy_check_bound(enemy, enemy_x, enemy_y) = 
   if enemy_x > SCREEN_WIDTH || enemy_x < 0.0 || enemy_y > SCREEN_HEIGHT || enemy_y < 0.0 then 1
   else 0
+
+
+extern
+fun
+cloref_app
+(
+  fwork: () -<cloref1> void
+) : void = "mac#" // endfun
+//
+implement cloref_app(fwork) = fwork()
 
 %{$
 function
