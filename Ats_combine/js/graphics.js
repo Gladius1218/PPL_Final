@@ -45,6 +45,7 @@ function tick(updateEvent) {
 }
 
 function gameover(){
+    alert("game over! your score is:" + score);
     panel_remove(player);
     score = 0;
     document.getElementById('score').innerHTML = 0;
@@ -156,6 +157,11 @@ function enemy_setPosition(enemy, x, y){
 //Math funcitons
 function rand(seed) {
     return Math.round(seed * Math.random());
+}
+function calc_dist(px, py, ex, ey){
+    var a = (px - ex) * (px - ex)
+    var b = (py - ey) * (py - ey)
+    return Math.sqrt(a*b)
 }
 
 // Store

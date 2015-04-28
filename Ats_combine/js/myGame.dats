@@ -10,6 +10,7 @@
 //
 (* ****** ****** *)
 //
+staload "libc/SATS/math.sats"
 staload "./myGame.sats"
 //
 (* ****** ****** *)
@@ -25,7 +26,7 @@ local
   val enemies = ref{store}(e)
   val e_cooldown = ref{int}(ENEMY_FREQ)
   val e_move = ref{int}(10)
-  val enemy_interval = 100
+  val enemy_interval = 50
 
   fun init(): void =
   {
@@ -128,7 +129,6 @@ in
   case- opt of
   | None() => ()
   | Some(_) => let
-    //val () = test(10086.0)
     val enemy = create_enemy()
     val () = set_enemy_animation(enemy)
   in
@@ -143,17 +143,25 @@ let
   val enemy_x = enemy_getPosition_X(enemy)
   val enemy_y = enemy_getPosition_Y(enemy)
   val dist_x = player_x - enemy_x
-  val dist_y = player_x - enemy_x
+  val dist_y = player_y - enemy_y
 in
     let
       val speed_x = dist_x / dist_y
       val speed_y = 1.0
-      //val () = test(speed_x)
+      val () = test(dist_x, dist_y)
     in
-      enemy_move(enemy, speed_x, speed_y, lam() => enemy_remove(enemy))
+      enemy_move(enemy, speed_x, speed_y, lam() => player_crash(enemy))
     end
 end
 
+implement player_crash(enemy) = let
+  val() = enemy_remove(enemy)
+  val opt = player_get()
+in
+  case opt of
+  | None() => ()//gameover() already in player_get function
+  | Some(_) => ()
+end
 
 implement enemy_move(enemy, speed_x, speed_y, k) = 
 let
@@ -180,8 +188,10 @@ implement enemy_check_crash(enemy, enemy_x, enemy_y) = let
   val player_y = player_getPosition_Y()
   val enemy_x = enemy_getPosition_X(enemy)
   val enemy_y = enemy_getPosition_Y(enemy)
+  val dist = calc_dist(player_x, player_y, enemy_x, enemy_y)//sqrt((player_x - enemy_x)*(player_x - enemy_x) + (player_y - enemy_y)*(player_y - enemy_y))
+  val safe_dist = (PLAYER_WIDTH + ENEMY_WIDTH) / 2.0
 in
-  if player_x = enemy_x && player_y = enemy_y then 1
+  if dist < safe_dist then 1
   else 0
 end
 
@@ -207,8 +217,8 @@ ATS_start()
 }
 
 function
-test(x){
-  alert(x);
+test(x, y){
+  console.log(x + ", " + y);
 }
 
 function

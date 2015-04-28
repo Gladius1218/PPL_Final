@@ -27,7 +27,9 @@
 #define KEY_DOWN 40
 #define KEY_SPACE 32
 //enemy
-#define ENEMY_FREQ 2000
+#define ENEMY_FREQ 800
+#define ENEMY_WIDTH 18.0
+#define ENEMY_HEIGHT 18.0
 
 //datatype
 typedef cont = () -<cloref1> void
@@ -59,9 +61,11 @@ fun player_update(dt: int): void = "mac#"
 fun player_get(): Option(int)
 fun player_fire_cooldown(): Option(int) = "mac#"
 fun player_fire(): void = "mac#"
+fun player_crash(enemy: gameobject):void = "mac#"
 
 //Math funcitons
 fun rand(int): int = "mac#"
+fun calc_dist(px:double, py:double, ex:double, ey:double): double = "mac#"
 fun setTimeout_cloref(fwork: cont, ntime: double) : void = "mac#"
 
 // Store
