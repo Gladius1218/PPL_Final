@@ -124,27 +124,27 @@ function player_setPosition_Y(y){
 
 function player_getPosition_X(){
     var x = player["offsetLeft"];
-    console.log("player_getPosition_X is:" + x);
+    //console.log("player_getPosition_X is:" + x);
     return x;
 }
 
 function player_getPosition_Y(){
     var y = player["offsetTop"];
     y = SCREEN_HEIGHT - y;
-    console.log("player_getPosition_Y is:" + y);
+    //console.log("player_getPosition_Y is:" + y);
     return y;
 }
 
 function enemy_getPosition_X(enemy){
     var x = enemy["offsetLeft"];
-    console.log("enemy_getPosition_X is:" + x);
+    //console.log("enemy_getPosition_X is:" + x);
     return x;
 }
 
 function enemy_getPosition_Y(enemy){
     var y = enemy["offsetTop"];
     y = SCREEN_HEIGHT - y;
-    console.log("enemy_getPosition_Y is:" + y);
+    //console.log("enemy_getPosition_Y is:" + y);
     return y;
 }
 

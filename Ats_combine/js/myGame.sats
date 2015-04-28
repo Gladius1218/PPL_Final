@@ -39,7 +39,7 @@ fun panel_add(gameobject): void = "mac#"
 fun panel_remove(gameobject): void = "mac#"
 fun game_tick(dt: int): void = "mac#"
 fun gameover(): void = "mac#"
-fun test(x:double): void = "mac#"
+fun test(x:double, y: double): void = "mac#"
 fun score_update(x:int): void = "mac#"
 
 //key press
