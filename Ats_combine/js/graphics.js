@@ -65,7 +65,7 @@ function panel_remove(obj) {
     gamePanel.removeChild(obj);
 }
 function score_update(delta){
-    score = parseInt(score + delta / 1000);
+    score = parseInt(score + delta);
     document.getElementById('score').innerHTML = score;
 }
 
