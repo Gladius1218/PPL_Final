@@ -141,14 +141,10 @@ let
   val enemy_y = enemy_getPosition_Y(enemy)
   val dist_x = player_x - enemy_x
   val dist_y = player_y - enemy_y
-  val speed_x = dist_x / dist_y
-  val speed_y = 1.0
+  val ratio = dist_x / dist_y
+  val speed_x = calc_speed_x(ratio)
+  val speed_y = ratio * speed_x
 in
-  if speed_x > 5.0 then let
-    val speed_x = 5.0
-  in
-    enemy_move(enemy, speed_x, speed_y, lam() => player_crash(enemy))
-  end else
     enemy_move(enemy, speed_x, speed_y, lam() => player_crash(enemy))
 end
 
@@ -177,7 +173,7 @@ in
   in
     case- check_bound of
     | 1 => enemy_remove(enemy)//out
-    | 0 => setTimeout_cloref(lam() => (enemy_move(enemy, speed_x, speed_y, k)), 5.0) //in
+    | 0 => setTimeout_cloref(lam() => (enemy_move(enemy, speed_x, speed_y, k)), 20.0) //in
   end
 end
 

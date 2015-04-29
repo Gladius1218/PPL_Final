@@ -27,7 +27,8 @@
 #define KEY_DOWN 40
 #define KEY_SPACE 32
 //enemy
-#define ENEMY_FREQ 200
+#define ENEMY_SPEED 1
+#define ENEMY_FREQ 100
 #define ENEMY_WIDTH 18.0
 #define ENEMY_HEIGHT 18.0
 
@@ -67,6 +68,7 @@ fun player_crash(enemy: gameobject):void = "mac#"
 
 //Math funcitons
 fun rand(int): int = "mac#"
+fun calc_speed_x(ratio:double): double = "mac#"
 fun calc_dist(px:double, py:double, ex:double, ey:double): double = "mac#"
 fun setTimeout_cloref(fwork: cont, ntime: double) : void = "mac#"
 
