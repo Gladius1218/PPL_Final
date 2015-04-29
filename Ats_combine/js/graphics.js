@@ -15,8 +15,7 @@ var KEY_UP = 38;
 var KEY_DOWN = 40;
 var KEY_SPACE = 32;
 //enemy
-var ENEMY_FREQ = 100;
-var ENEMY_SPEED = 5;
+var ENEMY_FREQ = 2000;
 
 var gamePanel = document.getElementById("gamePanel");
 var player = null;
@@ -163,16 +162,31 @@ function enemy_setPosition(enemy, x, y){
 function rand(seed) {
     return Math.round(seed * Math.random());
 }
-
 function calc_dist(px, py, ex, ey){
     var a = (px - ex) * (px - ex)
     var b = (py - ey) * (py - ey)
     return Math.sqrt(a+b)
 }
 
-function calc_speed_x(r){
-    var x = (ENEMY_SPEED * ENEMY_SPEED) / (1 + r * r)
-    return Math.sqrt(x)
+// Store
+function store_init() {
+    return [];
+}
+
+function store_add(store, o) {
+    store.push(o);
+}
+
+function store_get(store, i) {
+    return store[i];
+}
+
+function store_remove(store, i) {
+    store.splice(i, 1);
+}
+
+function store_size(store) {
+    return store.length;
 }
 
 //enemy
