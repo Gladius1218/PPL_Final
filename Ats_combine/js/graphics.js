@@ -48,6 +48,7 @@ function tick(updateEvent) {
 function gameover(){
     if (IS_GAME_OVER == false) {
         IS_GAME_OVER = true;
+        keys = {};
         alert("game over! your survived " + parseInt(score/1000) + " seconds!");
         createjs.Ticker.removeEventListener("tick", tick);
         panel_remove(player);
