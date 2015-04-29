@@ -22,18 +22,15 @@ staload "./myGame.sats"
 local
   val player = ref{int}(3)
   val enemy_cooldown = ref{int}(0)
-  val e = store_init()
-  val enemies = ref{store}(e)
   val e_cooldown = ref{int}(ENEMY_FREQ)
   val e_move = ref{int}(10)
   val enemy_interval = 50
 
-  fun init(): void =
+  implement init(): void =
   {
     // Init Player
+    val () = player[] := 3
     val () = player_init()
-    //  Init enemies
-    //val () = init_enemies(e, ENEMY_COLUMNS, ENEMY_ROWS)
   }
 
   implement player_get() = 
@@ -69,7 +66,7 @@ local
     end else None()
   end
 in
-  val () = init()
+  //val () = init()
 end(*local end*)
 
 implement player_keyPress() = 
@@ -144,14 +141,15 @@ let
   val enemy_y = enemy_getPosition_Y(enemy)
   val dist_x = player_x - enemy_x
   val dist_y = player_y - enemy_y
+  val speed_x = dist_x / dist_y
+  val speed_y = 1.0
 in
-    let
-      val speed_x = dist_x / dist_y
-      val speed_y = 1.0
-      val () = test(dist_x, dist_y)
-    in
-      enemy_move(enemy, speed_x, speed_y, lam() => player_crash(enemy))
-    end
+  if speed_x > 5.0 then let
+    val speed_x = 5.0
+  in
+    enemy_move(enemy, speed_x, speed_y, lam() => player_crash(enemy))
+  end else
+    enemy_move(enemy, speed_x, speed_y, lam() => player_crash(enemy))
 end
 
 implement player_crash(enemy) = let
@@ -190,9 +188,13 @@ implement enemy_check_crash(enemy, enemy_x, enemy_y) = let
   val enemy_y = enemy_getPosition_Y(enemy)
   val dist = calc_dist(player_x, player_y, enemy_x, enemy_y)//sqrt((player_x - enemy_x)*(player_x - enemy_x) + (player_y - enemy_y)*(player_y - enemy_y))
   val safe_dist = (PLAYER_WIDTH + ENEMY_WIDTH) / 2.0
+  //val () = test(player_x, player_y, enemy_x, enemy_y)
 in
-  if dist < safe_dist then 1
-  else 0
+  if dist < safe_dist then let
+    val() = crash_report(player_x, player_y, enemy_x, enemy_y)
+  in
+  1
+  end else 0
 end
 
 implement enemy_check_bound(enemy, enemy_x, enemy_y) = 
@@ -214,11 +216,17 @@ function
 ATS_start()
 {
   var _ = my_dynload();
+  var _ = init();
 }
 
 function
-test(x, y){
-  console.log(x + ", " + y);
+test(x, y, z, a){
+  console.log("player:" + x + ", " + y + "; enemy:" + z + ", " + a);
+}
+
+function
+crash_report(x, y, z, a){
+  console.log("crash found => player:" + x + ", " + y + "; enemy:" + z + ", " + a);
 }
 
 function

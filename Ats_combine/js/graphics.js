@@ -27,7 +27,7 @@ var score = 0;
 function Start(){
     IS_GAME_OVER = false;
     document.getElementById('startBtn').style.display = 'none';
-    document.getElementById('score').innerHTML = score;
+    document.getElementById('score').innerHTML = 0;
     document.getElementById('lives').innerHTML = 3;
     js_init();
 }
@@ -45,14 +45,18 @@ function tick(updateEvent) {
 }
 
 function gameover(){
-    alert("game over! your score is:" + score);
-    panel_remove(player);
-    score = 0;
-    document.getElementById('score').innerHTML = 0;
-    document.getElementById('lives').innerHTML = 0;
-    document.body.onkeydown = null;
-    document.body.onkeyup = null;    
-    document.getElementById('startBtn').style.display = 'block';
+    if (IS_GAME_OVER == false) {
+        IS_GAME_OVER = true;
+        alert("game over! your survived " + parseInt(score/1000) + " seconds!");
+        createjs.Ticker.removeEventListener("tick", tick);
+        panel_remove(player);
+        score = 0;
+        document.getElementById('score').innerHTML = 0;
+        document.getElementById('lives').innerHTML = 0;
+        document.body.onkeydown = null;
+        document.body.onkeyup = null;    
+        document.getElementById('startBtn').style.display = 'block';
+    }
 }
 
 
@@ -65,8 +69,8 @@ function panel_remove(obj) {
     gamePanel.removeChild(obj);
 }
 function score_update(delta){
-    score = parseInt(score + delta);
-    document.getElementById('score').innerHTML = score;
+    score = score + delta;
+    document.getElementById('score').innerHTML = parseInt(score / 1000);
 }
 
 
@@ -161,7 +165,7 @@ function rand(seed) {
 function calc_dist(px, py, ex, ey){
     var a = (px - ex) * (px - ex)
     var b = (py - ey) * (py - ey)
-    return Math.sqrt(a*b)
+    return Math.sqrt(a+b)
 }
 
 // Store

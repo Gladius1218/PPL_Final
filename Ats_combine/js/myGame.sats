@@ -27,7 +27,7 @@
 #define KEY_DOWN 40
 #define KEY_SPACE 32
 //enemy
-#define ENEMY_FREQ 800
+#define ENEMY_FREQ 200
 #define ENEMY_WIDTH 18.0
 #define ENEMY_HEIGHT 18.0
 
@@ -37,11 +37,13 @@ abstype gameobject
 abstype store
 
 //Panel Manipulate
+fun init():void = "mac#"
 fun panel_add(gameobject): void = "mac#"
 fun panel_remove(gameobject): void = "mac#"
 fun game_tick(dt: int): void = "mac#"
 fun gameover(): void = "mac#"
-fun test(x:double, y: double): void = "mac#"
+fun test(x:double, y: double, z: double, a: double): void = "mac#"
+fun crash_report(x:double, y: double, z: double, a: double): void = "mac#"
 fun score_update(x:int): void = "mac#"
 
 //key press
@@ -67,18 +69,6 @@ fun player_crash(enemy: gameobject):void = "mac#"
 fun rand(int): int = "mac#"
 fun calc_dist(px:double, py:double, ex:double, ey:double): double = "mac#"
 fun setTimeout_cloref(fwork: cont, ntime: double) : void = "mac#"
-
-// Store
-fun store_init(): store = "mac#"
-fun store_add(store, gameobject): void = "mac#"
-fun store_get(store, int): gameobject = "mac#"
-fun store_remove(store, int): void = "mac#"
-fun store_size(store): intGte(0) = "mac#"
-
-overload .add with store_add
-overload .get with store_get
-overload .remove with store_remove
-overload .size with store_size
 
 //enemy
 fun enemy_get(dt: int): Option(int) = "mac#"
