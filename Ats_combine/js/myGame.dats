@@ -21,10 +21,8 @@ staload "./myGame.sats"
 (* ****** ****** *)
 local
   val player = ref{int}(3)
-  val enemy_cooldown = ref{int}(0)
   val e_cooldown = ref{int}(ENEMY_FREQ)
   val e_move = ref{int}(10)
-  val enemy_interval = 50
 
   implement init(): void =
   {
@@ -56,6 +54,7 @@ local
     end else None()
   end
 
+  //not used
   implement enemy_move_get(dt) = let
     val () = e_move[] := e_move[] - dt
   in
@@ -172,7 +171,7 @@ in
     val check_bound = enemy_check_bound(enemy, enemy_x, enemy_y)
   in
     case- check_bound of
-    | 1 => enemy_remove(enemy)//out
+    | 1 => panel_remove(enemy)//out
     | 0 => setTimeout_cloref(lam() => (enemy_move(enemy, speed_x, speed_y, k)), 20.0) //in
   end
 end
@@ -197,14 +196,7 @@ implement enemy_check_bound(enemy, enemy_x, enemy_y) =
   if enemy_x > SCREEN_WIDTH || enemy_x < 0.0 || enemy_y > SCREEN_HEIGHT || enemy_y < 0.0 then 1
   else 0
 
-
-extern
-fun
-cloref_app
-(
-  fwork: () -<cloref1> void
-) : void = "mac#" // endfun
-//
+extern fun cloref_app(fwork: () -<cloref1> void): void = "mac#"
 implement cloref_app(fwork) = fwork()
 
 %{$

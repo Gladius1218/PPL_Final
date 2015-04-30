@@ -85,14 +85,6 @@ function check_key(e) {
 }
 
 function onkeydown(e){
-    switch(e.keyCode){
-        case KEY_LEFT:
-            player_getPosition_X();
-            break;
-        case KEY_UP:
-            player_getPosition_Y();
-            break;
-    }
     keys[e.keyCode] = true;
 }
 
@@ -142,24 +134,6 @@ function player_getPosition_Y(){
     return y;
 }
 
-function enemy_getPosition_X(enemy){
-    var x = enemy["offsetLeft"];
-    //console.log("enemy_getPosition_X is:" + x);
-    return x;
-}
-
-function enemy_getPosition_Y(enemy){
-    var y = enemy["offsetTop"];
-    y = SCREEN_HEIGHT - y;
-    //console.log("enemy_getPosition_Y is:" + y);
-    return y;
-}
-
-function enemy_setPosition(enemy, x, y){
-    enemy.style.left = x + 'px';
-    enemy.style.top = SCREEN_HEIGHT - y + 'px';
-}
-
 //Math funcitons
 function rand(seed) {
     return Math.round(seed * Math.random());
@@ -204,8 +178,26 @@ function create_enemy(){
     return enemy
 }
 
+function enemy_getPosition_X(enemy){
+    var x = enemy["offsetLeft"];
+    //console.log("enemy_getPosition_X is:" + x);
+    return x;
+}
+
+function enemy_getPosition_Y(enemy){
+    var y = enemy["offsetTop"];
+    y = SCREEN_HEIGHT - y;
+    //console.log("enemy_getPosition_Y is:" + y);
+    return y;
+}
+
+function enemy_setPosition(enemy, x, y){
+    enemy.style.left = x + 'px';
+    enemy.style.top = SCREEN_HEIGHT - y + 'px';
+}
+
 function enemy_remove(enemy){
     //alert("enemy eliminated!!");
     enemy.className = 'bingo';
-    panel_remove(enemy);
+    setTimeout(function(){panel_remove(enemy);return;}, 20);
 }
